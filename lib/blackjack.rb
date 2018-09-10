@@ -1,3 +1,4 @@
+require "pry"
 def welcome
   # code #welcome here
   puts "Welcome to the Blackjack Table"
@@ -44,17 +45,13 @@ end
 
 def hit?(handTotal)
   # code hit? here
-  binding.pry
   prompt_user()
   userInput = get_user_input()
   if userInput == "h"
-    if handTotal > 21
-      end_game(handTotal)
-    else
-      prompt_user()
-    end
+    handTotal = handTotal + deal_card()
+    return(handTotal)
   elsif userInput == "s"
-    prompt_user()
+    return(handTotal)
   else
   end
 end
@@ -68,6 +65,12 @@ end
 #####################################################
 
 def runner
-  # code runner here
-
+  handTotal = 0
+  welcome()
+  handTotal = initial_round()
+  until handTotal > 21
+  handTotal = hit?(handTotal)
+  display_card_total(handTotal)
+  end
+  end_game(handTotal)
 end
